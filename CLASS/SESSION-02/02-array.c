@@ -12,7 +12,7 @@ int main(void){
 
     int i;
     int temp = a[4];
-    i = 4;
+    i = 3;
 
     while(i >= 0) {
         a[i + 1] = a[i];
