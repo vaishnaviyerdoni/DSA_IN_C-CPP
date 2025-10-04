@@ -16,7 +16,8 @@ struct array{
 };
 
 void dynamic_builtin(void);
-void dynamic_user_defined(void);
+void dynamic_user_defined_date(void);
+void dynamic_user_defined_array(void);
 
 
 int main(void) {
@@ -29,7 +30,7 @@ int main(void) {
 
 }
 
-void_builtln(void) {
+void dynamic_builtin(void) {
     //1 : Declare a pointer and initialize it to NULL;
     int* ptr = NULL;
 
