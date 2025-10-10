@@ -51,7 +51,7 @@ void input(int* p_array, int N){
     int cap = N * 10; //populates the array with random numbers
     int i;
 
-    srand(time(0)); //set seed for random generator //seed?
+    srand(time(0)); //set seed for random generator
 
     i = 0;
 
