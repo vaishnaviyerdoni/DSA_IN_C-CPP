@@ -295,29 +295,27 @@ int pop_start(struct node* p_list, int* p_start_data)
 
 int pop_end(struct node* p_list, int* p_end_data)
 {
-    struct node* run = NULL; 
-    struct node* run_previous = NULL; 
+    struct node* run = NULL;
+    struct node* run_previous = NULL;
 
-    if(p_list->next == NULL)
-        return (LIST_EMPTY); 
-
-    run_previous = p_list; 
-    run = p_list->next; 
-    while(run->next != NULL)
-    {
-        run_previous = run; 
-        run = run->next; 
+    if(NULL == p_list->next){
+        return(LIST_EMPTY);
     }
 
-    *p_end_data = run->data; 
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run -> next != NULL) {
+        run_previous = run;
+        run = run -> next;
+    }
 
-    free(run); 
-    run = NULL; 
-    run_previous->next = NULL; 
+    *p_end_data = run -> data;
+    free(run);
+    run = NULL;
+    run_previous->next = NULL;
 
-    return (SUCCESS); 
+    return(SUCCESS);
 }
-
 
 //Remove Functions
 int remove_start(struct node* p_list)
@@ -431,20 +429,21 @@ int is_list_empty(struct node* p_list)
 
 void show(struct node* p_list, const char* msg)
 {
-    struct node* run = NULL; 
-
-    if(msg != NULL)
-        puts(msg); 
-
-    printf("[START]->"); 
-    run = p_list->next; 
-    while(run != NULL)
-    {
-        printf("[%d]->", run->data); 
-        run = run->next; 
+    struct node* run = NULL;
+    if(msg != NULL) {
+        puts(msg);
     }
-    printf("[END]\n"); 
+
+    printf("[START] -> ");
+    run = p_list->next;
+    while(run != NULL) {
+        printf("[%d] -> ", run -> data);
+        run = run -> next;
+    }
+
+    printf("[END]\n");
 }
+
 
 //Destruction Function
 int destroy_list(struct node* p_list)
