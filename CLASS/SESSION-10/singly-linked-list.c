@@ -12,8 +12,8 @@
 #define LIST_EMPTY          3
 
 // Node Layout Definition
-struct node {
-
+struct node 
+{
     int data;
     struct node* next;
 };
@@ -51,9 +51,11 @@ void show(struct node* p_list, const char* msg);
 int destroy_list(struct node* p_list);
 
 //Client of Linked List
-int main(void) {
-
+int main(void) 
+{
     struct node* p_list = NULL;
+
+    int status;
     int data, start_data, end_data;
     int length;
 
@@ -78,7 +80,114 @@ int main(void) {
 
     show(p_list, "Showing empty list immediately after creation");
     puts(line);
+
+    for(data = 0; data < 5; ++data) {
+        status = insert_start(p_list, data * 10);
+        assert(status == SUCCESS);
+        printf("%d inserted successfully at the start of the list\n", data * 10);
+    }
+
+
+    show(p_list, "Showing the list after inserting 5 at the start:");
+    puts(line);
     
+
+    for(data = 1; data <= 5; ++data) {
+        status = insert_end(p_list, data * 5);
+        assert(status == SUCCESS);
+        printf("%d inserted successfully at the end of the list\n", data * 5);
+    }
+
+    show(p_list, "Showing list after inserting at the end of the list");
+    puts(line);
+
+    status = insert_after(p_list, -5, 100);
+    assert(status == LIST_DATA_NOT_FOUND);
+    printf("Expected failure to insert data 100 after non existent data -5\n");
+    puts(line);
+
+    status = insert_after(p_list, 0, 100);
+    assert(status == SUCCESS);
+    show(p_list, "Showing the list after successfully inserting data after 0:");
+    puts(line);
+
+    status = insert_before(p_list, 43, 200);
+    assert(status == LIST_DATA_NOT_FOUND);
+    printf("Expected failure to insert data 200 after non existent 43\n");
+    puts(line);
+
+    status = insert_before(p_list, 0, 200);
+    assert(status == SUCCESS);
+    show(p_list, "Showing list after successfully inserting data after 200");
+    puts(line);
+
+    status = get_start(p_list, &start_data);
+    assert(status == SUCCESS);
+    printf("Data at the start : %d\n", start_data);
+    show(p_list, "Showing list to demonstrate that the get_start() returns data without removing it");
+    puts(line);
+
+    status = get_end(p_list, &end_data);
+    assert(status == SUCCESS);
+    printf("Data at the end = %d\n", end_data);
+    show(p_list, "Showing list to demonstrate the the get_end() returns data wihtout removing it");
+    puts(line);
+
+    status = pop_start(p_list, &start_data);
+    assert(status == SUCCESS);
+    printf("Data at the start = %d\n", start_data);
+    show(p_list, "Showing list to demonstrate that the pop_start() removes and then returns start data");
+    puts(line);
+
+    status = pop_end(p_list, &end_data);
+    assert( status == SUCCESS);
+    printf("Data at the end = %d\n", end_data);
+    show(p_list, "Showing list to demonstrate that the pop_end() removes and then returns end data");
+    puts(line);
+
+    status = remove_start(p_list);
+    assert(status == SUCCESS);
+    show(p_list, "Showing list after remove_start()");
+    puts(line);
+
+    status = remove_end(p_list);
+    assert(status == SUCCESS);
+    show(p_list, "Showing list after remove_end()");
+    puts(line);
+
+    status = remove_data(p_list, 78);
+    assert(status == LIST_DATA_NOT_FOUND);
+    printf("Expected error in removing non existent data 78\n");
+    puts(line);
+
+    status = remove_data(p_list, 0);
+    assert(status == SUCCESS);
+    show(p_list, "Showing list after removing data 0");
+    puts(line);
+
+    status = find(p_list, 91);
+    assert(status == FALSE);
+    printf("Expected return value from find() for non existent 91\n");
+    puts(line);
+
+    status = find(p_list, 100);
+    assert(status == TRUE);
+    printf("Expected return value from find() for existing data\n");
+    puts(line);
+
+    status = is_list_empty(p_list);
+    assert(status == FALSE);
+    printf("Expected return value from is_list_empty()");
+
+    length = get_list_length(p_list);
+    printf("Length of list = %d\n", length);
+    puts(line);
+
+    status = destroy_list(p_list); 
+    assert(status == SUCCESS); 
+    p_list = NULL; 
+    printf("List is destroyed successfully\n"); 
+    puts(line); 
     return 0;
 }
 
@@ -398,7 +507,7 @@ int find(struct node* p_list, int f_data)
 
     run = p_list -> next;
     while(NULL != run) {
-        if(run -> data = f_data) {
+        if(run -> data == f_data) {
             return(TRUE);
         }
 
@@ -445,21 +554,19 @@ void show(struct node* p_list, const char* msg)
 }
 
 
-//Destruction Function
+/* List destruction function */
 int destroy_list(struct node* p_list)
 {
-    struct node* run = NULL;
-    struct node* run_next = NULL;
+    struct node* run = NULL; 
+    struct node* run_next = NULL; 
 
-    run = p_list;
-    run_next = p_list -> next;
-
-    while(run != NULL) {
-
-        run_next = run -> next;
-        free(run);
-        run = run_next;
+    run = p_list;  
+    while(run != NULL)
+    {
+        run_next = run->next;
+        free(run); 
+        run = run_next; 
     }
 
-    return(SUCCESS);
+    return (SUCCESS); 
 }
