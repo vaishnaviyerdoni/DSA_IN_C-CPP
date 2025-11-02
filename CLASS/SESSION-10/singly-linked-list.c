@@ -15,7 +15,7 @@
 struct node 
 {
     int data;
-    struct node* next;
+    struct node* next; //this is called link
 };
 
 //Interface Function Declarations
@@ -554,19 +554,20 @@ void show(struct node* p_list, const char* msg)
 }
 
 
-/* List destruction function */
+/*List destruction function*/
 int destroy_list(struct node* p_list)
 {
-    struct node* run = NULL; 
-    struct node* run_next = NULL; 
+    struct node* run = NULL;
+    struct node* run_next = NULL;
 
-    run = p_list;  
-    while(run != NULL)
+    run = p_list;
+
+    while(NULL != run)
     {
-        run_next = run->next;
-        free(run); 
-        run = run_next; 
+        run_next = run -> next;
+        free(run);
+        run = run_next;
     }
 
-    return (SUCCESS); 
+    return(SUCCESS);
 }
