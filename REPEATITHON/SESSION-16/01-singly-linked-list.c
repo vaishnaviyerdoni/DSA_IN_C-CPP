@@ -161,8 +161,27 @@ int insert_after(struct node* p_list, int existing_data, int new_data)
     return(SUCCESS);
 }
 
-int insert_before(struct node* p_list, int existing data, int new_data)
+int insert_before(struct node* p_list, int existing_data, int new_data)
 {
+    struct node* run = NULL;
+    struct node* run_previous = NULL;
+    struct node* new_node = NULL;
+
+    //Step 1 - Search for the first occurence of the existing data
+    //         maintaining back pointer 
+
+    run_previous = p_list;
+    run = p_list->next;
+    while(run != NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
+        run_previous = run;
+        run = run -> next;
+    }
+
     
 }
 
