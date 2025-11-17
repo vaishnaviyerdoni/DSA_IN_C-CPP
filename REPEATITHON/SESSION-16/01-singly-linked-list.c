@@ -192,7 +192,7 @@ int main(void)
     status = destroy_list(p_list);
     assert(status == SUCCESS);
     p_list = NULL;
-    printf("List destroyed Successfully!");
+    printf("List destroyed Successfully!\n");
     puts(line);
 
     return(0);
@@ -447,6 +447,8 @@ int remove_start(struct node* p_list)
     delete_previous = p_list;
     delete_node = p_list -> next; //node to be deleted/removed
     delete_next = p_list -> next -> next; //The node next to the one we are deleting
+
+    delete_previous -> next = delete_next;
 
     free(delete_node);
     delete_node = NULL;
