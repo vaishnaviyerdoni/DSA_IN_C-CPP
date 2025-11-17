@@ -16,7 +16,8 @@ int main(void)
     //Iteration
     summation = 0; 
     for(i = 0; i < N; ++i)
-        summation += A[i]; 
+        summation += A[i];
+        printf("a[%d] : %d\n", i, A[i]); //the placement of print is altering the value of summation as well as the value at a particular index of an array: why??
 
     printf("Summation of all elements in array (computed iteratively) = %d\n", summation); 
 
