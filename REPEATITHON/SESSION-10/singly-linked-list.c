@@ -60,7 +60,7 @@ int main(void)
     int data, start_data, end_data; 
     int length;
 
-    static const char* line = "----------------------------------------------------------------"; 
+    static const char* line = "---------------------------------------------------------------"; 
 
     p_list = create_list(); 
     assert(p_list != NULL); 
