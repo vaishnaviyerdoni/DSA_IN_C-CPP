@@ -165,3 +165,35 @@ int remove_data(struct node* p_list, int r_data);
 int remove_data(struct node* p_list, int r_data);
 
 //Miscellaneous Functions
+int find(struct node* p_list, int f_data);
+int find(struct node* p_list, int f_data);
+int find(struct node* p_list, int f_data);
+int find(struct node* p_list, int f_data);
+int find(struct node* p_list, int f_data);
+
+int get_list_length(struct node* p_list);
+int get_list_length(struct node* p_list);
+int get_list_length(struct node* p_list);
+int get_list_length(struct node* p_list);
+int get_list_length(struct node* p_list);
+
+int is_list_empty(struct node* p_list);
+int is_list_empty(struct node* p_list);
+int is_list_empty(struct node* p_list);
+int is_list_empty(struct node* p_list);
+int is_list_empty(struct node* p_list);
+
+void show_list(struct node* p_list);
+void show_list(struct node* p_list);
+void show_list(struct node* p_list);
+void show_list(struct node* p_list);
+void show_list(struct node* p_list);
+
+//List destruction functions
+int destroy_list(struct node* p_list);
+int destroy_list(struct node* p_list);
+int destroy_list(struct node* p_list);
+int destroy_list(struct node* p_list);
+int destroy_list(struct node* p_list);
+
+
