@@ -514,7 +514,7 @@ int insert_after(struct node* p_list, int existing_data, int new_data)
     //Allocate and Initialize the node
     existing_node = run;
     new_node = (struct node*)malloc(sizeof(struct node));
-    if(new_node ==  NULL)
+    if(new_node == NULL)
     {
         puts("Out of Memory");
         exit(EXIT_FAILURE);
@@ -529,27 +529,187 @@ int insert_after(struct node* p_list, int existing_data, int new_data)
 
 int insert_before(struct node* p_list, int existing_data, int new_data)
 {
+    struct node* run_previous = NULL;
+    struct node* run = NULL;
+    struct node* new_node = NULL;
+
+    //Search for the node having the first occurrence of the data
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run != NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
+
+        run = run -> next;
+    } 
+
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
+
+    //Allocate an Initialize the new data
+    new_node = (struct node*)malloc(sizeof(struct node));
+    if(new_node == NULL)
+    {
+        puts("Out of Memory");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node -> data = new_data;
+    //Insert the new node at an appropriate position
+    new_node -> next = run;
+    run_previous -> next = new_node;
+
+    return(SUCCESS);
+}
+
+int insert_before(struct node* p_list, int existing_data, int new_data)
+{
+    struct node* run = NULL;
+    struct node* new_node = NULL;
+    struct node* run_previous = NULL;
+
+    //Search for the node having first occurence of the 
+    run_previous = p_list;
+    run = p_list -> next;
+    while (run != NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
+        run = run -> next;
+    }
+
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
     
+    //Initialize and allocate the new node
+    new_node = (struct node*)malloc(sizeof(struct node));
+    if(new_node == NULL)
+    {
+        puts("Out off Memory");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node -> data = new_data;
+    new_node -> next = run;
+    run_previous -> next =  new_node;
+
+    return(SUCCESS);
 }
 
 int insert_before(struct node* p_list, int existing_data, int new_data)
 {
+    struct node* run = NULL;
+    struct node* new_node = NULL;
+    struct node* run_previous = NULL;
 
+    //Search for the node with first occurence of the existing data
+    run_previous = p_list;
+    run =  p_list -> next;
+    while(run != NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
+
+        run = run -> next;
+    }
+
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
+
+    //ALlocate and Initialize the new_node
+    new_node = (struct node*)struct(sizeof(struct node));
+    if(new_node == NULL)
+    {
+        puts("Out of Memory");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node -> data = existing_data;
+    new_node -> next = run;
+    run_previous -> next = new_node;
+
+    return(SUCCESS);
 }
 
 int insert_before(struct node* p_list, int existing_data, int new_data)
 {
+    struct node* run = NULL;
+    struct node* new_node = NULL;
+    struct node* run_previous =  NULL;
 
+    //Search for the node with first occurence of the existing data
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run != NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
+        run = run -> next;
+    }
+
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
+
+    //Allocate abd Initialize the new_node
+    new_node = (struct node*)malloc(sizeof(struct node));
+    if(new_node == NULL)
+    {
+        puts("Out of Memory");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node -> data = new_data;
+    new_node -> next = run;
+    run_previous -> next = new_node;
+
+    return(SUCCESS);
 }
 
 int insert_before(struct node* p_list, int existing_data, int new_data)
 {
+    struct node* run = NULL;
+    struct node* new_node = NULL;
+    struct node* run_previous = NULL;
+    
+    //search for the node having the first occurence of the existing data
+    run_previous = p_list;
+    run =  p_list -> next;
+    while(run !=  NULL)
+    {
+        if(run -> data == existing_data)
+        {
+            break;
+        }
 
-}
+        run = run -> next;
+    }
 
-int insert_before(struct node* p_list, int existing_data, int new_data)
-{
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
 
+    //Allocate and Initialize the new_node
+    new_node = (struct node*)malloc(sizeof(struct node));
+    if(new_node == NULL)
+    {
+        puts("Out of Memory");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node -> data = new_data;
+    //Insert the new node at the appropriate position
+    new_node -> run;
+    run_previous -> next = new_node;
+
+    return(SUCCESS);
 }
 
 //Get Functions
