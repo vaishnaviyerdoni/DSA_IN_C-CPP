@@ -5,30 +5,30 @@
 #include <string.h>
 
 //Symbolic constants
-#define TRUE 1
-#define TRUE 1
-#define TRUE 1
-#define TRUE 1
+#define TRUE                1
+#define TRUE                1
+#define TRUE                1
+#define TRUE                1
 
-#define SUCCESS 1
-#define SUCCESS 1
-#define SUCCESS 1
-#define SUCCESS 1
+#define SUCCESS             1
+#define SUCCESS             1
+#define SUCCESS             1
+#define SUCCESS             1
 
-#define FALSE 0
-#define FALSE 0
-#define FALSE 0
-#define FALSE 0
+#define FALSE               0
+#define FALSE               0
+#define FALSE               0
+#define FALSE               0
 
 #define LIST_DATA_NOT_FOUND 2
 #define LIST_DATA_NOT_FOUND 2
 #define LIST_DATA_NOT_FOUND 2
 #define LIST_DATA_NOT_FOUND 2
 
-#define LIST_EMPTY 3
-#define LIST_EMPTY 3
-#define LIST_EMPTY 3
-#define LIST_EMPTY 3
+#define LIST_EMPTY          3
+#define LIST_EMPTY          3
+#define LIST_EMPTY          3
+#define LIST_EMPTY          3
 
 //Node layout definitions
 struct node
@@ -134,7 +134,7 @@ int insert_start(struct node* p_list, int new_data)
     }
 
     new_node -> data = new_data;
-    new_node -> next = p_list -> next; //maintain the back pointer
+    new_node -> next = p_list -> next; 
     p_list -> next = new_node;
 
     return(SUCCESS);
@@ -713,3 +713,258 @@ int insert_before(struct node* p_list, int existing_data, int new_data)
 }
 
 //Get Functions
+int get_start(struct node* p_list, int* p_start_data)
+{
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
+}
+
+int get_start(struct node* p_list, int* p_start_data)
+{
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
+}
+
+int get_start(struct node* p_list, int* p_start_data)
+{
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
+}
+
+int get_start(struct node* p_list, int* p_start_data)
+{
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
+}
+
+int get_start(struct node* p_list, int* p_start_data)
+{
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+    
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+    struct node* run = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+    
+    run = p_list -> next;
+    while (run-> next  != NULL)
+    {
+        run =  run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    return(SUCCESS);   
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+    struct node* run = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    return(SUCCESS);
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+    struct node* run = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    return(SUCCESS);
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+    struct node* run = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run = p_list -> next;
+    while (run -> next != NULL)
+    {
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    return(SUCCESS);
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+    struct node* run = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    return(SUCCESS);
+}
+
+int pop_start(struct node* p_list, int* p_start_data)
+{
+    struct node* delete_node = NULL;
+    struct node* delete_next = NULL;
+    struct node* delete_previous = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    delete_previous = p_list;
+    delete_node = p_list -> next;
+    delete_next = p_list -> next -> next;
+
+    delete_previous -> next = delete_next; // now headnode points to 2nd node, making it the 1st one, since we will pop the original 1st node
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
+}
+
+int pop_start(struct node* p_list, int* p_start_data)
+{
+    struct node* delete_node = NULL;
+    struct node* delete_next = NULL;
+    struct node* delete_previous = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    delete_previous = p_list;
+    delete_node = p_list -> next; //node that headnode points to, so 1st node, one that we intend to pop
+    delete_next = p_list -> next -> next; //2nd node, that 1st is currently pointing
+
+    delete_previous -> next = delete_next; //now 2nd node is 1st
+
+    free(delete_node); //pop the first node
+    delete_node = NULL; //make the first node = NULL
+
+    return(SUCCESS);
+}
+
+int pop_start(struct node* p_list, int* p_start_data)
+{
+    struct node* delete_node = NULL;
+    struct node* delete_next = NULL;
+    struct node* delete_previous = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+
+    delete_previous = p_list; //headnode
+    delete_node = p_list -> next; //1st node that headnode points to
+    delete_next = p_list -> next -> next; //2nd node that will become 1st. once 1st is popped
+
+    delete_previous -> next = delete_next; //address of 2nd put in head_node's next, hence 2nd node becomes 1st
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
+}
+
+int pop_start(struct node* p_list, int* p_start_data)
+{
+    struct node* delete_next = NULL;
+    struct node* delete_node = NULL;
+    struct node* delete_previous = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    delete_previous = p_list;
+    delete_node = p_list -> next;
+    delete_next = p_list -> next -> next;
+
+    delete_previous -> next = delete_next;
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
+}
+
+int pop_start(struct node* p_list, int* p_start_data)
+{
+    struct node* delete_next = NULL;
+    struct node* delete_node = NULL;
+    struct node* delete_previous = NULL;
+
+    if (p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    delete_previous = p_list;
+    delete_node = p_list -> next;
+    delete_next = p_list -> next -> next;
+
+    delete_previous -> next = delete_next;
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
+}

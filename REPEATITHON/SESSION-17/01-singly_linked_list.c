@@ -32,16 +32,16 @@ int insert_before(struct node* p_list, int existing_data, int new_data);
 int get_start(struct node* p_list, int* p_start_data);
 int get_end(struct node* p_list, int* p_end_data);
 
-//pop
+//pop Functions
 int pop_start(struct node* p_list, int* p_start_data);
 int pop_end(struct node* p_list, int* p_end_data);
 
-//remove
+//remove Functions
 int remove_start(struct node* p_list);
 int remove_end(struct node* p_list);
 int remove_data(struct node* p_list, int r_data);
 
-//miscellaneous
+//miscellaneous Functions
 int find(struct node* p_list, int f_data);
 int is_list_empty(struct node* p_list);
 int get_list_length(struct node* p_list);
@@ -202,4 +202,69 @@ int insert_before(struct node* p_list, int existing_data, int new_data)
     run_previous -> next = new_node;
 
     return(SUCCESS);
+}
+
+//get functions
+int get_start(struct node* p_list, int* p_start_data)
+{
+    
+}
+
+int get_end(struct node* p_list, int* p_end_data)
+{
+
+}
+
+//pop Functions
+int pop_start(struct node* p_list, int* p_start_data)
+{
+
+}
+
+int pop_end(struct node* p_list, int* p_end_data)
+{
+
+}
+
+//remove Functions
+int remove_start(struct node* p_list)
+{
+
+}
+
+int remove_end(struct node* p_list)
+{
+
+}
+
+int remove_data(struct node* p_list, int r_data)
+{
+
+}
+
+//miscellaneous Functions
+int find(struct node* p_list, int f_data)
+{
+
+}
+
+int is_list_empty(struct node* p_list)
+{
+
+}
+
+int get_list_length(struct node* p_list)
+{
+
+}
+
+void show(struct node* p_list, const char* msg)
+{
+
+}
+
+//List Destruction Function
+int destroy_list(struct node* p_list)
+{
+
 }
