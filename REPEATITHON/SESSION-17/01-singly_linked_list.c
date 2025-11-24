@@ -181,6 +181,7 @@ int insert_before(struct node* p_list, int existing_data, int new_data)
         {
             break;
         }
+        run_previous = run;
         run = run -> next;
     }
 
@@ -192,11 +193,11 @@ int insert_before(struct node* p_list, int existing_data, int new_data)
     if(new_node == NULL)
     {
         puts("Out of Memory");
-        eixt(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     new_node -> data = new_data;
-    new_node -> next = run;// back pointer
+    new_node -> next = run;
 
     //Insert the new node at the appropriate position
     run_previous -> next = new_node;
@@ -207,29 +208,92 @@ int insert_before(struct node* p_list, int existing_data, int new_data)
 //get functions
 int get_start(struct node* p_list, int* p_start_data)
 {
-    
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    return(SUCCESS);
 }
 
 int get_end(struct node* p_list, int* p_end_data)
 {
+    struct node* run = NULL;
+    struct node* run_previous = NULL;
 
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run_previous = run;
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    free(run);
+    run = NULL;
+    run_previous -> next = NULL;
+
+    return(SUCCESS);
 }
 
 //pop Functions
 int pop_start(struct node* p_list, int* p_start_data)
 {
+    struct node* delete_node = NULL;
+    struct node* delete_next = NULL;
+    struct node* delete_previous = NULL;
 
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    *p_start_data = p_list -> next -> data;
+
+    delete_previous = p_list;
+    delete_node = p_list -> next;
+    delete_next = p_list -> next -> next;
+
+    delete_previous -> next = delete_next;
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
 }
 
 int pop_end(struct node* p_list, int* p_end_data)
 {
+    struct node* run_previous = NULL;
+    struct node* run = NULL;
 
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run_previous = run;
+        run = run -> next;
+    }
+
+    *p_end_data = run -> data;
+
+    free(run);
+    run = NULL;
+    run_previous -> next = NULL;
+
+    return(SUCCESS);
 }
 
 //remove Functions
 int remove_start(struct node* p_list)
 {
-
+    
 }
 
 int remove_end(struct node* p_list)
