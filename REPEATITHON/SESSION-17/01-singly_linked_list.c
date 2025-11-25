@@ -293,42 +293,140 @@ int pop_end(struct node* p_list, int* p_end_data)
 //remove Functions
 int remove_start(struct node* p_list)
 {
+    struct node* delete_next = NULL;
+    struct node* delete_node = NULL;
+    struct node* delete_previous = NULL;
+
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
     
+    delete_previous = p_list;
+    delete_node = p_list -> next;
+    delete_next = p_list -> next -> next;
+
+    delete_previous -> next = delete_next;
+
+    free(delete_node);
+    delete_node = NULL;
+
+    return(SUCCESS);
 }
 
 int remove_end(struct node* p_list)
 {
+    struct node* run = NULL;
+    struct node* run_previous = NULL;
 
+    if(p_list -> next == NULL)
+        return(LIST_EMPTY);
+
+    run_previous = p_list;
+    run = p_list -> next;
+    while(run -> next != NULL)
+    {
+        run_previous = run;
+        run = run -> next;
+    }
+
+    free(run);
+    run = NULL;
+
+    return(SUCCESS);
 }
 
 int remove_data(struct node* p_list, int r_data)
 {
+    struct node* run = NULL;
+    struct node* run_previous = NULL;
 
+    run_previous = p_list;
+    run = p_list -> next;
+    while (run != NULL)
+    {
+        if(run -> data == r_data)
+        {
+            break;
+        }
+        run_previous = run;
+        run = run -> next;
+    }
+
+    if(run == NULL)
+        return(LIST_DATA_NOT_FOUND);
+
+    run_previous -> next = run -> next;
+    free(run);
+    run = NULL;
+
+    return(SUCCESS);
 }
 
 //miscellaneous Functions
 int find(struct node* p_list, int f_data)
 {
+    struct node* run = NULL;
 
+    run = p_list -> next;
+    while(run != NULL)
+    {
+        if(run -> data == f_data)
+        {
+            return(TRUE);
+        }
+        run = run -> next;
+    }
+
+    return(FALSE);
 }
 
 int is_list_empty(struct node* p_list)
 {
+    int len = 0;
+    struct node* run = NULL;
 
+    run = p_list -> next;
+    while(run != NULL)
+    {
+        len = len + 1;
+        run = run -> next;
+    }
+
+    return(len);
 }
 
 int get_list_length(struct node* p_list)
 {
-
+    return(p_list -> next == NULL);
 }
 
 void show(struct node* p_list, const char* msg)
 {
+    struct node* run = NULL;
+    if(msg != NULL)
+        puts(msg);
 
+    run = p_list -> next;
+    printf("[START] ->");
+    while(run != NULL)
+    {
+        printf("[%d] ->", run -> data);
+        run = run -> next;
+    }
+    puts("[END]");
 }
 
 //List Destruction Function
 int destroy_list(struct node* p_list)
 {
+    struct node* run_next = NULL;
+    struct node* run = NULL;
 
+    run = p_list -> next;
+    while (run != NULL)
+    {
+        run_next = run -> next;
+        free(run);
+        run = run_next;
+    }
+    puts("[END]");
 }
