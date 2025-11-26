@@ -76,7 +76,7 @@ struct node
 struct node
 {
     int data;
-    struct node* 
+    struct node* next;
 };
 
 struct node
@@ -195,5 +195,3 @@ int destroy_list(struct node* p_list);
 int destroy_list(struct node* p_list);
 int destroy_list(struct node* p_list);
 int destroy_list(struct node* p_list);
-
-
