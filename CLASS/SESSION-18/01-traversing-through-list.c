@@ -71,3 +71,17 @@ void get_last_node(struct node* p_list)
 
     ///run is the last node
 }
+
+void get_last_node(struct node* p_list)
+{
+    struct node* run = NULL;
+
+    run = p_list;
+    while(run != NULL)
+    {
+        run = run -> next;
+    }
+
+    //run is the last node
+}
+
