@@ -85,3 +85,8 @@ void get_last_node(struct node* p_list)
     //run is the last node
 }
 
+void show(struct node* p_list)
+
+{
+    
+}
