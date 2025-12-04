@@ -81,6 +81,7 @@ int main(void)
     show(p_list, "Showing empty list immediately after creation");
     puts(line);
 
+    //Inserting data and checking assertions on non empty linked list
     for(data = 0; data < 5; ++data) {
         status = insert_start(p_list, data * 10);
         assert(status == SUCCESS);
