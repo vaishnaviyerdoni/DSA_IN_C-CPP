@@ -52,7 +52,6 @@ status_t is_list_empty(list_t* p_list);
 len_t get_list_length(list_t* p_list);
 status_t find(list_t* p_list, data_t f_data);
 void show(list_t* p_list, const char* msg);
-status_t clear_list(list_t* p_list);
 
 //List Destruction Functions
 status_t destroy_list(list_t** p_list);
