@@ -10,7 +10,7 @@ int main(void)
     list_t* reversed_list = NULL;
     list_t* p_list1 = NULL;
     list_t* p_list2 = NULL;
-    list_t* concat_list = NULL;
+    list_t* concated_list = NULL;
     list_t* merged_list = NULL;
     status_t status;
     len_t len;
@@ -97,29 +97,79 @@ int main(void)
     puts(line);
 
     len = get_list_length(p_list);
-    printf(("Length after pop and remove operations = %d\n", len);
+    printf("Length after pop and remove operations = %d\n", len);
     assert(is_list_empty(p_list) == FALSE);
     puts(line);
     
-    if(find(p_list, 1000) == LIST_DATA_NOT_FOUND)
-        puts("1000 is not present in the list");
-    if(find(p_list, 2) == TRUE)
-        puts("2 is present in list");
+    if(find(p_list, -10) == FALSE)
+        printf("-10 is not in the list.\n");
+    
+    if(find(p_list, 7) == TRUE)
+        printf("7 is present in the list.\n");
     puts(line);
 
-    show(p_list, "p_list before immutble reversal");
+    show(p_list, "Showing p_list before reversal");
     reversed_list = get_reversed_list(p_list);
-    show(reversed_list, "After reversing immutably");
-    show(p_list, "p_list, after get_reversed_list():it should be same before and after");
-    assert(destroy_list(&reversed_list) == SUCCESS && reversed_list == NULL);
+    show(reversed_list, "Reversed version of p_list after immutable reversal");
+    show(p_list, "p_list after reversal: It should same as before since reversal is immutable");
+    assert(destroy_list(&reversed_list) == SUCCESS);
     puts(line);
 
-    show(p_list, "Before mutable reversal: reverse_list()");
+    show(p_list, "Showing p_list: before mutable reversal");
     assert(reverse_list(p_list) == SUCCESS);
-    show(p_list, "After mutable reversal: reverse_list()");
+    show(p_list, "Showing p_list after mutable reversal");
     puts(line);
 
-    return(0);
+    while(is_list_empty(p_list) != TRUE)
+        assert(remove_end(p_list) == SUCCESS);    
+    assert(is_list_empty(p_list));
+
+    show(p_list, "p_list is now empty.");
+    assert(reverse_list(p_list) == SUCCESS);
+    show(p_list, "reversed list should be empty too.");
+    puts(line);
+
+    assert(insert_end(p_list, 10) == SUCCESS);
+    show(p_list, "List should contain one element");
+    assert(reverse_list(p_list) == SUCCESS);
+    show(p_list, "reversed version of list with one element is same as original list");
+    assert(destroy_list(&p_list) == SUCCESS && p_list == NULL);
+    puts("p_list destroyed successfully!");
+    puts(line);
+
+    puts("Testing inter list routines");
+    p_list1 = create_list();
+    p_list2 = create_list();
+    assert(is_list_empty(p_list1) == TRUE && is_list_empty(p_list2) == TRUE);
+    merged_list = merge_lists(p_list1, p_list2);
+    assert(is_list_empty(merged_list) == TRUE);
+    assert(destroy_list(&merged_list) == SUCCESS && merged_list == NULL);
+
+    for(data = 5; data <= 55; data += 10)
+        assert(insert_end(p_list1, data) == SUCCESS);
+
+    for(data = 10; data <= 50; data += 10)
+        assert(insert_end(p_list2, data) == SUCCESS);
+
+    show(p_list1, "Before concating");
+    show(p_list2, "Before concating");
+    concated_list = get_concated_list(p_list1, p_list2);
+    show(concated_list, "after concating p_list1 and p_list2");
+    puts(line);
+
+    show(p_list1, "Before concating mutably");
+    show(p_list2, "Before concating mutably");
+    assert(concat_lists(p_list1, &p_list2) == SUCCESS);
+    show(p_list1, "After concating mutably");
+    puts(line);
+
+    assert(destroy_list(&p_list1) == SUCCESS && p_list1 == NULL);
+    assert(destroy_list(&concated_list) ==  SUCCESS && concated_list == NULL);
+    puts("All assertions checked successfully!");
+    puts("All lists destroyed");
+    puts(line);
+    
+    return(EXIT_SUCCESS);
 }
 
 //Server
@@ -309,8 +359,8 @@ void show(list_t* p_list, const char* msg)
     node_t* run = NULL;
 
     printf("[START] <-> ");
-    run = p_list;
-    while (run -> next != NULL)
+    run = p_list->next;
+    while (run != NULL)
     {
         printf("[%d] <-> ", run->data);
         run = run -> next;
@@ -327,7 +377,7 @@ status_t destroy_list(list_t** pp_list)
 
     p_list = *pp_list; //derefering pp_list will give us pointer pointing to head node of struct node
 
-    run = p_list;
+    run = p_list-> next;
     while(run != NULL)
     {
         run_next = run-> next;
@@ -419,17 +469,18 @@ static void* xcalloc(size_t nr_elements, size_t size_per_elements)
 //Concat Immuable
 list_t* get_concated_list(list_t* p_list1, list_t* p_list2)
 {
-    list_t* p_concat_list = NULL;
+    list_t* concat_list = NULL;
     node_t* run = NULL;
 
-    p_concat_list = create_list();
-    for(run = p_list1 -> next; run != NULL; run = run -> next)
-        assert(insert_end(p_concat_list, run -> data) == SUCCESS);
-    
-    for(run = p_list2 -> next; run != NULL; run - run -> next)
-        assert(insert_end(p_concat_list, run -> data) ==  SUCCESS);
+    concat_list = create_list();
 
-    return(p_concat_list);
+    for(run = p_list1 -> next; run != NULL; run = run -> next)
+        assert(insert_end(concat_list, run -> data) == SUCCESS);
+
+    for(run = p_list2 -> next; run != NULL; run = run -> next)
+        assert(insert_end(concat_list, run-> data) == SUCCESS);
+
+    return(concat_list);
 }
 
 //concat mutable
@@ -554,7 +605,7 @@ status_t reverse_list(list_t* p_list)
         run -> prev = current_last;
         current_last = run;
         current_last -> next = NULL;
-        run = run -> prev;
+        run = run_prev;
     }
 
     if(p_list != original_last)
