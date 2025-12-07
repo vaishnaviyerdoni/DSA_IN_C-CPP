@@ -77,4 +77,4 @@ static node_t* search_node(list_t* p_list, data_t s_data);
 
 static void* xcalloc(size_t nr_elements, size_t size_per_elements);
 
-#endif 
+#endif // _LIST_H

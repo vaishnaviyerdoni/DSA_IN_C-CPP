@@ -80,7 +80,7 @@ int main(void)
 
     assert(pop_end(p_list, &end_data) == SUCCESS);
     printf("Data Popped from the end of the list = %d\n", end_data);
-    show(p_list, "After pop_start()");
+    show(p_list, "After pop_end()");
     puts(line);
 
     assert(remove_start(p_list) == SUCCESS);
@@ -93,6 +93,7 @@ int main(void)
 
     assert(remove_data(p_list, -22) == LIST_DATA_NOT_FOUND);
     assert(remove_data(p_list, 0) == SUCCESS);
+    printf("Removing data = 0\n");
     show(p_list, "After remove_data()");
     puts(line);
 
@@ -150,6 +151,12 @@ int main(void)
 
     for(data = 10; data <= 50; data += 10)
         assert(insert_end(p_list2, data) == SUCCESS);
+    
+    show(p_list1, "Before merging");
+    show(p_list2, "Before merging");
+    merged_list = merge_lists(p_list1, p_list2);
+    show(merged_list, "Merge sorted list");
+    puts(line);
 
     show(p_list1, "Before concating");
     show(p_list2, "Before concating");
