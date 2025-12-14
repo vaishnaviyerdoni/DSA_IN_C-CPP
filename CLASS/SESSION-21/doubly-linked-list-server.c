@@ -146,7 +146,7 @@ int main(void)
     assert(is_list_empty(merged_list) == TRUE);
     assert(destroy_list(&merged_list) == SUCCESS && merged_list == NULL);
 
-    for(data = 5; data <= 55; data += 10)
+    for(data = 5; data <= 45; data += 10)
         assert(insert_end(p_list1, data) == SUCCESS);
 
     for(data = 10; data <= 50; data += 10)
@@ -172,6 +172,7 @@ int main(void)
 
     assert(destroy_list(&p_list1) == SUCCESS && p_list1 == NULL);
     assert(destroy_list(&concated_list) ==  SUCCESS && concated_list == NULL);
+    assert(destroy_list(&merged_list) == SUCCESS && merged_list == NULL);
     puts("All assertions checked successfully!");
     puts("All lists destroyed");
     puts(line);
