@@ -18,7 +18,7 @@ struct bst
     struct bst_node* p_root_node;
     size_t number_of_element;
 };
-
+ 
 //Interface Function declarations
 //Allocate a new instance of binary search tree
 struct bst* create_bst(void);
