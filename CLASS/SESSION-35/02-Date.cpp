@@ -62,9 +62,11 @@ int main()
 
 void test_date()
 {
-    Date myDate;
+    //Here my myDate obj is uninitialized, but we never let obj/instance uninitialized
+    Date myDate;//stack madhe memry milel as it is local var of test_date func and size is 12 bytes for 3 ints in class
     
-    myDate.initialize(27, 1, 2026);
+    myDate.initialize(27, 1, 2026); //Date::initialize(&myDate, 27, 1, 2026);
+    Date::initialize(&myDate, 31, 1, 2026); //myDate.initialize(31, 1, 2026);
 
     int day, month, year;
 
