@@ -9,7 +9,7 @@
 enum status
 {
     SUCCESS                      = 1,
-    TRUE                         = 2,
+    TRUE                         = 1,
     FALSE                        = 0,
     BST_EMPTY                    = -1,
     BST_NO_INORDER_SUCCESSOR     = -2,
@@ -87,7 +87,7 @@ status_t min_bst(bst_t* p_bst, data_t* p_min_data);
 void destroy_nodelevel(bst_node_t* root_node);
 
 //SEARCH
-void search_nodelevel(bst_node_t* root_node, data_t s_data);
+bst_node_t* search_nodelevel(bst_node_t* root_node, data_t s_data);
 
 //TRAVERSALS
 void inorder_nodelevel(bst_node_t* root_node);
@@ -120,13 +120,79 @@ void test_bst_extreme(void);
 
 int main(void)
 {
+    test_bst_normal();
     return(EXIT_SUCCESS);
 }
 
 //TEST
 void test_bst_normal(void)
 {
+    bst_t* p_bst = NULL;
+    status_t status;
+    data_t data[] = {100, 50, 150, 25, 75, 125, 200, 65, 130};
+    data_t non_existent_data[] = {-200, 34, 68, 98, 0xaabb, 0xf0f0f0f0};
+    size_t index;
+    data_t min_data, max_data;
 
+    const char* line = "---------------------------------------------------------------";
+
+    puts(line);
+    printf("Normal Testing begins:\n");
+    puts(line);
+
+
+    p_bst = create_bst();
+    printf("Binary Search Tree created successfully\n");
+    puts(line);
+
+    for(index = 0; index < sizeof(data)/sizeof(data[0]); ++index)
+    {
+        status = insert_bst(p_bst, data[index]);
+        assert(status == SUCCESS);
+        printf("insert_bst() for [%d] is successful\n", data[index]);
+    }
+
+    puts(line);
+
+    inorder(p_bst);
+    preorder(p_bst);
+    postorder(p_bst);
+
+    puts(line);
+
+    for(index = 0; index < sizeof(data)/sizeof(data[0]); ++index)
+    {
+        status = search_bst(p_bst, data[index]);
+        assert(status == TRUE);
+        printf("Search of [%d] is successful\n", data[index]);
+    }
+
+    puts(line);
+
+    for(index = 0; index < sizeof(non_existent_data)/sizeof(non_existent_data[0]); ++index)
+    {
+        status = search_bst(p_bst, non_existent_data[index]);
+        assert(status == FALSE);
+        printf("Search for [%d] is not successful as expected\n", non_existent_data[index]);
+    }
+
+    puts(line);
+
+    assert(max_bst(p_bst, &max_data) == SUCCESS);
+    printf("The maximum datam element in the bst is %d\n", max_data);
+
+    assert(min_bst(p_bst, &min_data) == SUCCESS);
+    printf("The minimum data element in the bst is %d\n", min_data);
+
+    puts(line);
+
+    status = destroy_bst(&p_bst);
+    assert(status == SUCCESS && p_bst == NULL);
+    puts("Binary Search Destroyed Successfully!");
+
+    puts(line);
+    puts("Normal Testing Ends");
+    puts(line);
 }
 
 void test_bst_extreme(void)
@@ -213,10 +279,10 @@ status_t insert_bst(bst_t* p_bst, data_t n_data)
 //SEARCH DATA ALGORITHM
 status_t search_bst(bst_t* p_bst, data_t s_data)
 {
-    bst_node_t* s_node = NULL;
+    bst_node_t* run = NULL;
 
-    s_node = search_nodelevel(p_bst -> root_node, s_data);
-    return(s_node != NULL);
+    run = search_nodelevel(p_bst -> root_node, s_data);
+    return(run != NULL);
 }
 
 //REMOVE DATA ALGORITHM
@@ -318,7 +384,7 @@ status_t min_bst(bst_t* p_bst, data_t* p_min_data)
         return(BST_EMPTY);
 
     min_node = min_bst_nodelevel(p_bst->root_node);
-    *min_node = min_node -> data;
+    *p_min_data = min_node -> data;
 
     return(SUCCESS);
 }
@@ -336,24 +402,22 @@ void destroy_nodelevel(bst_node_t* root_node)
 }
 
 //SEARCH
-void search_nodelevel(bst_node_t* root_node, data_t s_data)
+bst_node_t* search_nodelevel(bst_node_t* root_node, data_t s_data)
 {
     bst_node_t* run = NULL;
 
     run = root_node;
     while(run != NULL)
     {
-        if(run -> data == s_data)
-            return(run);
-
-        else if(run -> data < s_data)
+        if(run->data == s_data)
+            break;
+        else if(s_data < run->data)
             run = run -> left;
-
         else
             run = run -> right;
     }
 
-    return(NULL);
+    return(run);
 }
 
 
@@ -428,7 +492,7 @@ bst_node_t* max_bst_nodelevel(bst_node_t* root_node)
     bst_node_t* run = NULL;
 
     run = root_node;
-    while(run != NULL)
+    while(run->right != NULL)
     {
         run = run -> right;
     }
@@ -441,9 +505,9 @@ bst_node_t* min_bst_nodelevel(bst_node_t* root_node)
     bst_node_t* run = NULL;
 
     run = root_node;
-    while(run != NULL)
+    while(run->left != NULL)
     {
-        run = run -> right;
+        run = run -> left;
     }
 
     return(run);
