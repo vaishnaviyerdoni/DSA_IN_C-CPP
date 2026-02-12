@@ -121,6 +121,11 @@ void test_bst_extreme(void);
 int main(void)
 {
     test_bst_normal();
+
+    #ifdef EXTREME_TESTING_ON
+    test_bst_extreme();
+    #endif
+
     return(EXIT_SUCCESS);
 }
 
@@ -197,7 +202,87 @@ void test_bst_normal(void)
 
 void test_bst_extreme(void)
 {
+    bst_t* p_bst = NULL;
+    data_t* p_arr = NULL;
+    size_t N = 1000000;
+    status_t status;
+    data_t max_data, min_data;
+    data_t nonexistent_data[] = {-100, -200, 32768, 100000, 1234567};
+
+    const char* line = "---------------------------------------------------------------";
+
+    puts(line);
+    printf("Extreme Testing begins:\n");
+    puts(line);
+
+    //Allocate memory to hold 1000000 random integers
+    p_arr = (data_t*)xmalloc(N * sizeof(data_t));
+
+    //Set the seed of random number generator
+    srand(time(0));
+
+    //Populate data array
+    for(size_t index = 0; index < N; ++index)
+    {
+        p_arr[index] = rand();
+    }
+
+    //Allocate the bst instance 
+    p_bst = create_bst();
+    printf("Binary Search Tree created successfully\n");
+    puts(line);
+
+    for(size_t index = 0; index < N; ++index)
+    {
+        status = insert_bst(p_bst, p_arr[index]);
+        assert(status == SUCCESS);
+    }
+    printf("Binary Search Tree populated successfully\n");
+    puts(line);
+
+    inorder(p_bst);
+    preorder(p_bst);
+    postorder(p_bst);
     
+    puts(line);
+
+    for(size_t index = 0; index < N; ++index)
+    {
+        status = search_bst(p_bst, p_arr[index]);
+        assert(status == SUCCESS);
+        printf("Search for [%d] is successful\n", p_arr[index]);
+    }
+
+    puts(line);
+
+    for(size_t index = 0; index < sizeof(nonexistent_data)/sizeof(nonexistent_data[0]); ++index)
+    {
+        status = search_bst(p_bst, nonexistent_data[index]);
+        assert(status == SUCCESS);
+        printf("Search for [%d] is unsuccessful\n", nonexistent_data[index]);
+    }
+
+    puts(line);
+
+    assert(max_bst(p_bst, &max_data) == SUCCESS);
+    printf("The maximum datam element in the bst is %d\n", max_data);
+
+    assert(min_bst(p_bst, &min_data) == SUCCESS);
+    printf("The minimum data element in the bst is %d\n", min_data);
+
+    puts(line);
+
+    status = destroy_bst(&p_bst);
+    assert(status == SUCCESS && p_bst == NULL);
+
+    puts("Binary Search Destroyed Successfully!");
+
+    free(p_arr);
+    p_arr = NULL;
+
+    puts(line);
+    puts("Extreme Testing Ends");
+    puts(line);
 }
 
 //INTERFACE FUNCTIONS
