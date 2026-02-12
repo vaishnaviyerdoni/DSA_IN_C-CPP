@@ -258,14 +258,14 @@ void test_bst_extreme(void)
     for(size_t index = 0; index < sizeof(nonexistent_data)/sizeof(nonexistent_data[0]); ++index)
     {
         status = search_bst(p_bst, nonexistent_data[index]);
-        assert(status == SUCCESS);
+        assert(status == FALSE);
         printf("Search for [%d] is unsuccessful\n", nonexistent_data[index]);
     }
 
     puts(line);
 
     assert(max_bst(p_bst, &max_data) == SUCCESS);
-    printf("The maximum datam element in the bst is %d\n", max_data);
+    printf("The maximum data element in the bst is %d\n", max_data);
 
     assert(min_bst(p_bst, &min_data) == SUCCESS);
     printf("The minimum data element in the bst is %d\n", min_data);
