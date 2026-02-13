@@ -11,13 +11,14 @@ enum status
     SUCCESS                      = 1,
     TRUE                         = 1,
     FALSE                        = 0,
-    BST_EMPTY                    = -1,
-    BST_NO_INORDER_SUCCESSOR     = -2,
-    BST_NO_INORDER_PREDECESSOR   = -3,
-    BST_NO_PREORDER_SUCCESSOR    = -4,
-    BST_NO_PREORDER_PREDECESSOR  = -5,
-    BST_NO_POSTORDER_SUCCESSOR   = -6,
-    BST_NO_POSTORDER_PREDECESSOR = -7
+    BST_DATA_NOT_FOUND           = -1,
+    BST_EMPTY                    = -2,
+    BST_NO_INORDER_SUCCESSOR     = -3,
+    BST_NO_INORDER_PREDECESSOR   = -4,
+    BST_NO_PREORDER_SUCCESSOR    = -5,
+    BST_NO_PREORDER_PREDECESSOR  = -6,
+    BST_NO_POSTORDER_SUCCESSOR   = -7,
+    BST_NO_POSTORDER_PREDECESSOR = -8
 };
 
 //TYPEDEFS
@@ -185,7 +186,7 @@ void test_bst_normal(void)
     puts(line);
 
     assert(max_bst(p_bst, &max_data) == SUCCESS);
-    printf("The maximum datam element in the bst is %d\n", max_data);
+    printf("The maximum data element in the bst is %d\n", max_data);
 
     assert(min_bst(p_bst, &min_data) == SUCCESS);
     printf("The minimum data element in the bst is %d\n", min_data);
@@ -194,7 +195,7 @@ void test_bst_normal(void)
 
     status = destroy_bst(&p_bst);
     assert(status == SUCCESS && p_bst == NULL);
-    puts("Binary Search Destroyed Successfully!");
+    puts("Binary Search Tree Destroyed Successfully!");
 
     puts(line);
     puts("Normal Testing Ends");
@@ -418,12 +419,38 @@ void postorder_nrc(bst_t* p_bst)
 //INORDER SUCCESSOR AND PREDECESSOR
 status_t inorder_successor(bst_t* p_bst, data_t e_data, data_t* succ_data)
 {
+    bst_node_t* p_e_node = NULL;
+    bst_node_t* p_succ_node = NULL;
     
+    p_e_node = search_nodelevel(p_bst->root_node, e_data);
+    if(p_e_node == NULL)
+        return(BST_DATA_NOT_FOUND);
+
+    p_succ_node = inorder_successor_nodelevel(p_e_node);
+    if(p_succ_node == NULL)
+        return(BST_NO_INORDER_SUCCESSOR);
+
+    *succ_data = p_succ_node -> data;
+
+    return(SUCCESS);
 }
 
 status_t inorder_predecessor(bst_t* p_bst, data_t e_data, data_t* pred_data)
 {
+    bst_node_t* p_e_node = NULL;
+    bst_node_t* p_pred_node = NULL;
 
+    p_e_node = search_nodelevel(p_bst -> root_node);
+    if(p_e_node == NULL)
+        return(BST_DATA_NOT_FOUND);
+
+    p_pred_node = inorder_predecessor_nodelevel(p_e_node);
+    if(p_pred_node == NULL)
+        return(BST_NO_INORDER_PREDECESSOR);
+
+    *pred_data = p_pred_node -> data;
+
+    return(SUCCESS);
 }
 
 //PREORDER SUCCESSOR AND PREDECESSOR

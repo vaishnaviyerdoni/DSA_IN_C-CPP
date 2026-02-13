@@ -185,7 +185,7 @@ void test_bst_normal(void)
     puts(line);
 
     assert(max_bst(p_bst, &max_data) == SUCCESS);
-    printf("The maximum datam element in the bst is %d\n", max_data);
+    printf("The maximum data element in the bst is %d\n", max_data);
 
     assert(min_bst(p_bst, &min_data) == SUCCESS);
     printf("The minimum data element in the bst is %d\n", min_data);
@@ -194,7 +194,7 @@ void test_bst_normal(void)
 
     status = destroy_bst(&p_bst);
     assert(status == SUCCESS && p_bst == NULL);
-    puts("Binary Search Destroyed Successfully!");
+    puts("Binary Search Tree Destroyed Successfully!");
 
     puts(line);
     puts("Normal Testing Ends");
