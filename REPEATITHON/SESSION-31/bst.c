@@ -134,8 +134,8 @@ void test_bst_normal(void)
 {
     bst_t* p_bst = NULL;
     status_t status;
-    data_t data[] = {100, 50, 150, 25, 12, 40, 45, 43, 47, 200, 175, 250};
-    data_t data2[] = {100, 50, 150, 25, 75, 125, 200, 65, 130};
+    data_t data[] = {100, 50, 150, 25, 75, 125, 200, 65, 130};
+    data_t data2[] = {100, 50, 150, 25, 12, 40, 45, 43, 47, 200, 175, 250};
     data_t non_existent_data[] = {-200, 34, 68, 98, 0xaabb, 0xf0f0f0f0};
     size_t index;
     data_t min_data, max_data;
@@ -418,7 +418,7 @@ void postorder_nrc(bst_t* p_bst)
 //INORDER SUCCESSOR AND PREDECESSOR
 status_t inorder_successor(bst_t* p_bst, data_t e_data, data_t* succ_data)
 {
-
+    
 }
 
 status_t inorder_predecessor(bst_t* p_bst, data_t e_data, data_t* pred_data)
