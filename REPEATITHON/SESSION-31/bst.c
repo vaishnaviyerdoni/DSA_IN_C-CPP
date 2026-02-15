@@ -568,12 +568,44 @@ void postorder_nodelevel(bst_node_t* root_node) //left, right, root
 //NODELEVEL INORDER SUCCESSOR AND PREDECESSOR
 bst_node_t* inorder_successor_nodelevel(bst_node_t* e_node)
 {
+    bst_node_t* x = NULL;
+    bst_node_t* y = NULL;
+    bst_node_t* z = NULL;
 
+    z = e_node;
+    if(z -> right != NULL)
+        return(min_bst_nodelevel(z -> right));
+
+    x = z;
+    y = x -> parent;
+    while(y != NULL && y -> right == x)
+    {
+        y = x;
+        y = y->parent;
+    }
+
+    return(y);
 }
 
 bst_node_t* inorder_predecessor_nodelevel(bst_node_t* e_node)
-{
+{   
+    bst_node_t* x = NULL;
+    bst_node_t* y = NULL;
+    bst_node_t* z = NULL;
 
+    z = e_node;
+    if(z->left != NULL)
+        return(max_bst_nodelevel(z->left));
+
+    x = z;
+    y = x -> parent;
+    while(y != NULL && y -> left == x)
+    {
+        y = x;
+        y = y -> parent;
+    }
+
+    return(y);
 }
 
 //NODELEVEL PREORDER SUCCESSOR AND PREDECESSOR
