@@ -11,7 +11,6 @@ node::node(int _data) : data(_data), prev(0), next(0)
 
 }
 
-
 //-------------------CLASS NODE - END-------------------//
 
 //------------------CLASS LIST - START------------------//
@@ -250,24 +249,7 @@ list* list::get_reversed_list() const
      
 void list::reverse()
 {
-    if(!(head_node -> next == head_node || head_node -> next -> next == head_node))
-    {
-        node* original_first = head_node -> next;
 
-        node* run_next = 0;
-        for(node* run = original_first -> next; run != head_node; run = run -> next)
-        {
-            run_next = run;
-            
-            run -> next = head_node -> next;
-            run -> prev = head_node;
-            head_node -> next -> prev =run;
-            head_node -> next = run;
-        }
-
-        original_first -> next = head_node;
-        head_node -> prev = original_first;
-    }
 }
 
 //------------------CLASS LIST - PRIVATE FUNCTIONS------------------//
