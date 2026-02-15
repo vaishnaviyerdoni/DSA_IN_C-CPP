@@ -679,7 +679,7 @@ void* xmalloc(size_t size)
 
     if(p == NULL)
     {
-        puts("xmalloc()Lmalloc():Allocation Error");
+        puts("xmalloc():malloc():Allocation Error");
         exit(EXIT_FAILURE);
     }
 
