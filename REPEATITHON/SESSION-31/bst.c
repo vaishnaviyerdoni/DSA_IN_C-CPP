@@ -139,7 +139,7 @@ void test_bst_normal(void)
     data_t data2[] = {100, 50, 150, 25, 12, 40, 45, 43, 47, 200, 175, 250};
     data_t non_existent_data[] = {-200, 34, 68, 98, 0xaabb, 0xf0f0f0f0};
     size_t index;
-    data_t min_data, max_data;
+    data_t min_data, max_data, pred_data, succ_data;
 
     const char* line = "---------------------------------------------------------------";
 
@@ -190,6 +190,44 @@ void test_bst_normal(void)
 
     assert(min_bst(p_bst, &min_data) == SUCCESS);
     printf("The minimum data element in the bst is %d\n", min_data);
+
+    puts(line);
+
+    for(index = 0; index < sizeof(data)/sizeof(data[0]); ++index)
+    {
+        status = inorder_predecessor(p_bst, data[index], &pred_data);
+        switch (status)
+        {
+            case SUCCESS:
+                printf("INORDER PREDECESSOR(%d):%d\n", data[index], pred_data);
+                break;
+            case BST_DATA_NOT_FOUND:
+                printf("%d is not present in the given BST.\n", data[index]);
+            case BST_NO_INORDER_PREDECESSOR:
+                printf("%d is the first node in inorder, hence it does not have a predecessor.\n");
+            default:
+                break;
+        }
+    }
+
+    puts(line);
+
+    for(index = 0; index < sizeof(data)/sizeof(data[0]); ++index)
+    {
+        status = inorder_successor(p_bst, data[index], &succ_data);
+        switch (status)
+        {
+            case SUCCESS:
+                printf("INORDER SUCCESSOR(%d):%d\n", data[index], succ_data);
+                break;
+            case BST_DATA_NOT_FOUND:
+                printf("%d is not present in the given BST.\n", data[index]);
+            case BST_NO_INORDER_SUCCESSOR:
+                printf("%d is the last node in inorder, hence it does not have a successor.\n");
+            default:
+                break;
+        }
+    }
 
     puts(line);
 
@@ -440,7 +478,7 @@ status_t inorder_predecessor(bst_t* p_bst, data_t e_data, data_t* pred_data)
     bst_node_t* p_e_node = NULL;
     bst_node_t* p_pred_node = NULL;
 
-    p_e_node = search_nodelevel(p_bst -> root_node);
+    p_e_node = search_nodelevel(p_bst -> root_node, e_data);
     if(p_e_node == NULL)
         return(BST_DATA_NOT_FOUND);
 
@@ -580,7 +618,7 @@ bst_node_t* inorder_successor_nodelevel(bst_node_t* e_node)
     y = x -> parent;
     while(y != NULL && y -> right == x)
     {
-        y = x;
+        x = y;
         y = y->parent;
     }
 
@@ -601,7 +639,7 @@ bst_node_t* inorder_predecessor_nodelevel(bst_node_t* e_node)
     y = x -> parent;
     while(y != NULL && y -> left == x)
     {
-        y = x;
+        x = y;
         y = y -> parent;
     }
 
